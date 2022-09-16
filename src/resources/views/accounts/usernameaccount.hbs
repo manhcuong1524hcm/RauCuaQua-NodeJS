@@ -1,0 +1,38 @@
+<div class="container-fluid">
+    <div class="row h-300 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-light rounded p-12 p-sm-10 my-6 mx-3">
+                <h3>Account</h3>
+            </div>
+            <form method="post" action="/khongnhoAccount/{{accounts._id}}?_method=PUT">
+                <div class="form-floating m-3">
+                    <label class="form-label">user name</label>
+                    <input type="text" class="form-control " name="username" value="{{accounts.username}}" readonly>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">password</label>
+                    <input type="password" class="form-control" name="password">
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Nhập lại password</label>
+                    <input type="password" class="form-control" name="c">
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Họ tên</label>
+                    <input type="text" class="form-control " name="hoten" value="{{accounts.hoten}}" readonly>
+                </div>
+                 <div class="form-floating m-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control " name="email" value="{{accounts.email}}" readonly>
+                </div>
+                
+               
+               
+                <button type="submit" class="btn btn-primary py-3 w-100 m-3"
+                    style="background-color: #F28123">Lưu</button>
+                <h4> <a href="/" class="btn btn-primary py-3 w-100 m-3" > Hủy </a> </h4> 
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="mt-150 mb-150">
+    <h3>Thùng rác</h3>
+    <a href="/me/stored/products">Back</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+            <tr>
+                <th scope="row">{{sum @index 1 }}</th>
+                <td>{{this.ten}}</td>
+                <td>{{this.gia}}</td>
+                <td>{{this.deletedAt}}</td>
+                <td>
+                    <a href="" class="btn btn-primary btn-restore" data-id="{{this._id}}">không xóa</a>
+                    <a href="" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-products-modal">xóa</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colpan="5" class="text-center">
+                    Thùng rác trống
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div id="delete-products-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Có muốn xóa rau củ quả?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-delete-products" type="button" class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<form name="delete-form" method="post" ></form>
+<form name="restore-form" method="post" ></form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var ID
+        var deleteform = document.forms['delete-form']
+        var restoreform = document.forms['restore-form']
+        var btnDelete = document.getElementById('btn-delete-products');
+        var restore = $('.btn-restore')
+        $('#delete-products-modal').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget)
+            ID = button.data('id')
+            
+        })
+        
+        btnDelete.onclick = function(){
+            deleteform.action = '/products/' + ID + '/force' + '?_method=DELETE'
+            deleteform.submit()
+        }
+        
+        restore.click(function(event){
+            event.preventDefault()
+            
+            var ID = $(this).data('id')
+            restoreform.action = '/products/' + ID + '/restore' + '?_method=PATCH' 
+            restoreform.submit()
+        })
+    })
+</script>

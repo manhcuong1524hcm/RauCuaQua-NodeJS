@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row h-300 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-light rounded p-12 p-sm-10 my-6">
+                <h3>Chỉnh Sửa Rau Củ Quả</h3>
+            </div>
+            <form method="post" action="/products/{{products._id}}?_method=PUT" enctype="multipart/form-data">
+                <div class="form-floating m-3">
+                    <label class="form-label">Tên Rau Củ Quả</label>
+                    <input type="text" class="form-control " name="ten" value="{{products.ten}}" >
+
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Số lượng</label>
+                    <input type="text" class="form-control" name="soLuong" value="{{products.soLuong}}">
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Giá</label>
+                    <input type="text" class="form-control" value="{{products.gia}}" name="gia">
+                </div>
+                
+                <div class="form-floating m-3">
+                    <label class="form-label">image</label>
+                    <input class="form-control" type="file"  name="img" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Mô tả</label>
+                    <textarea class="form-control" rows="3" name="moTa">{{products.moTa}}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary py-3 w-100 m-1" style="background-color: #F28123">Lưu</button>
+                <h4> <a href="/me/stored/products" class="btn btn-primary py-3 w-100 m-1" > Hủy </a> </h4> 
+            </form>
+        </div>
+    </div>
+</div>

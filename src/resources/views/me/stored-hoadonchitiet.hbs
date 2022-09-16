@@ -1,0 +1,87 @@
+<div class="mt-150 mb-150">
+
+    
+    <h3>Quản Lý Các Hóa Đơn Của User </h3>
+    <form class="form-inline my-2 my-lg-0" method="get" action="/me/stored/hoadonchitiet/search">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" >
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Họ tên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Số điện thoại</th>
+
+                <th scope="col">Status</th>
+                <th scope="col">Thời gian</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col"></th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {{#each hoadonchitiet}}
+            <tr>
+                <th scope="row">{{sum @index 1 }}</th>
+                <td>{{this.hoten}}</td>
+                <td>{{this.diachi}}</td>
+                <td>{{this.sodienthoai}}</td>
+                <td>{{this.status}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>{{this.tongtien}}</td>
+                <td>
+                    <a href="/hoadonchitiet/{{this._id}}/edit" class="btn btn-outline-primary">Edit</a>
+                    <a href="" class="btn btn-outline-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#delete-hoadonchitiet-modal">Delete</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colpan="5" class="text-center">
+                    Không có các hóa đơn chi tiết
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div id="delete-hoadonchitiet-modal" class="modal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Có muốn xóa không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id="btn-delete-hoadonchitiet" type="button" class="btn btn-danger">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form name="delete-form" method="post" ></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        var ID
+        var deleteform = document.forms['delete-form']
+        var btnDelete = document.getElementById('btn-delete-hoadonchitiet');
+        $('#delete-hoadonchitiet-modal').on('show.bs.modal', function(event){
+            var button = $(event.relatedTarget)
+            ID = button.data('id')
+            
+        })
+        
+        btnDelete.onclick = function(){
+            deleteform.action = '/hoadonchitiet/' + ID + '?_method=DELETE'
+            deleteform.submit()
+        }
+    })
+</script>

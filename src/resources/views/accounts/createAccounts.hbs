@@ -1,0 +1,48 @@
+<div class="container-fluid">
+    <div class="row h-300 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-light rounded p-12 p-sm-10 my-6 m-3">
+                <h3>Thêm Các Account</h3>
+            </div>
+            <form method="post" action="/accounts/storeAccounts" enctype="multipart/form-data">
+                <div class="form-floating m-3">
+                    <input type="text" class="form-control " name="role" value="user" hidden>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">user name</label>
+                    <input type="text" class="form-control " name="username" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">password</label>
+                    <input type="password" class="form-control" name="password" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Họ tên</label>
+                    <input type="text" class="form-control " name="hoten" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">địa chỉ</label>
+                    <input type="text" class="form-control " name="diachi" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Số diện thoại</label>
+                    <input type="text" class="form-control " name="sodienthoai" required>
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control " name="email">
+                </div>
+                <div class="form-floating m-3">
+                    <label class="form-label">image</label>
+                    <input class="form-control" type="file" name="img" required>
+                </div>
+                <button type="submit" class="btn btn-primary py-3 w-100 m-1" style="background-color: #F28123">Sign in</button>       
+                <h4> <a href="/me/stored/accounts" class="btn btn-primary py-3 w-100 m-1">Hủy</a> </h4>       
+           
+               
+            </form>
+           
+        </div>
+    </div>
+</div>
+</div>

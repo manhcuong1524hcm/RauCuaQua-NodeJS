@@ -1,0 +1,87 @@
+<div class="mt-150 mb-150">
+    <h3>Quản Lý Các Account</h3>
+    <h3><a href="/accounts/create" class="btn btn-primary">Tạo Account</a></h3>
+    <a href="/me/trash/accounts">Thùng rác</a>
+  
+<form class="form-inline my-2 my-lg-0" method="get" action="/me/stored/accounts/search">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="q" >
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Họ tên</th>
+                <th scope="col">Địa chỉ</th>
+                <th scope="col">Số điện thoại</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each accounts}}
+            <tr>
+                <th scope="row">{{sum @index 1 }}</th>
+                <td>{{this.hoten}}</td>
+                <td>{{this.diachi}}</td>
+                <td>{{this.sodienthoai}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.role}}</td>
+                <td>
+                    <a href="/accounts/{{this._id}}" class="btn btn-primary">Chi Tiết</a>
+                    <a href="/accounts/{{this._id}}/edit" class="btn btn-outline-primary">Edit</a>
+                    <a href="" class="btn btn-outline-danger" data-id="{{this._id}}" data-toggle="modal"
+                        data-target="#delete-accounts-modal">Delete</a>
+                </td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colpan="5" class="text-center">
+                    Không có các account
+                    <a href="/accounts/create">Tạo Các Account</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<div id="delete-accounts-modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Có muốn xóa account không?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="btn-delete-accounts" type="button" class="btn btn-danger">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<form name="delete-form" method="post"></form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var ID
+        var deleteform = document.forms['delete-form']
+        var btnDelete = document.getElementById('btn-delete-accounts');
+        $('#delete-accounts-modal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            ID = button.data('id')
+
+        })
+
+        btnDelete.onclick = function () {
+            deleteform.action = '/accounts/' + ID + '?_method=DELETE'
+            deleteform.submit()
+        }
+    })
+</script>

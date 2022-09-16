@@ -1,0 +1,67 @@
+<div class="container-fluid">
+    <div class="row h-300 align-items-center justify-content-center" style="min-height: 100vh;">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+            <div class="bg-light rounded p-12 p-sm-10 my-6 mx-3">
+                <h3>Login</h3>
+            </div>
+            <div class="form-floating m-3">
+                <label class="form-label">username</label>
+                <input type="text" class="form-control " id="username" name="username" required>
+
+            </div>
+            <div class="form-floating m-3">
+                <label class="form-label">password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <button onclick="login()" class="btn btn-primary py-3 w-100 m-3"
+                style="background-color: #F28123">Login</button>
+            <div class="form-floating m-3"><a href="/khongnhoAccount">Quên mật khẩu</a></div>
+            <div class="form-floating m-3"> Bạn không có tài khoản? <a href="/accounts/create">Tạo tài khoản</a> </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<script>
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        let expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    function login() {
+        $.ajax({
+            url: '/me/login',
+            type: 'POST',
+            data: {
+                username: $('#username').val(),
+                password: $('#password').val()
+            }
+
+        }).then(data => {
+            setCookie('token', data.token, 1)
+            window.location.href = "/me/stored/products"
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+</script>
